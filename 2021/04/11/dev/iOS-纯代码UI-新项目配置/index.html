@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="为什么纯代码写 UI? Storyboards 由于其复杂的 xml 结构更容易出现兼容性问题, 合并的时候相对纯代码麻烦. 使用纯代码更方便复用,使代码库更简洁. 在一个位置完成所有 UI 自定义, 而 Storyboard 需要反复点击 inspectors 去设置. Storyboard 增加了 UI 和代码的耦合度, 如果没有正确配置好 outlet 和 action 会造成崩溃,且这些问">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 纯代码UI 新项目配置">
+<meta property="og:url" content="http://yoursite.com/2021/04/11/dev/iOS-%E7%BA%AF%E4%BB%A3%E7%A0%81UI-%E6%96%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="Evancohe">
+<meta property="og:description" content="为什么纯代码写 UI? Storyboards 由于其复杂的 xml 结构更容易出现兼容性问题, 合并的时候相对纯代码麻烦. 使用纯代码更方便复用,使代码库更简洁. 在一个位置完成所有 UI 自定义, 而 Storyboard 需要反复点击 inspectors 去设置. Storyboard 增加了 UI 和代码的耦合度, 如果没有正确配置好 outlet 和 action 会造成崩溃,且这些问">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-11T12:21:45.000Z">
+<meta property="article:modified_time" content="2025-08-28T05:51:33.742Z">
+<meta property="article:author" content="Evancohe">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Xcode">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>iOS 纯代码UI 新项目配置</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Articles</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2021/04/25/dev/Uni-app%E4%B8%AD%E4%BD%BF%E7%94%A8renderjs%E9%80%BB%E8%BE%91%E5%B1%82%E5%92%8C%E8%A7%86%E5%9B%BE%E5%B1%82%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1%E7%AC%94%E8%AE%B0/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2021/03/21/dev/Flex-and-Grid-Layout/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2021/04/11/dev/iOS-%E7%BA%AF%E4%BB%A3%E7%A0%81UI-%E6%96%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2021/04/11/dev/iOS-%E7%BA%AF%E4%BB%A3%E7%A0%81UI-%E6%96%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/&text=iOS 纯代码UI 新项目配置" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2021/04/11/dev/iOS-%E7%BA%AF%E4%BB%A3%E7%A0%81UI-%E6%96%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/&title=iOS 纯代码UI 新项目配置" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2021/04/11/dev/iOS-%E7%BA%AF%E4%BB%A3%E7%A0%81UI-%E6%96%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/&is_video=false&description=iOS 纯代码UI 新项目配置" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=iOS 纯代码UI 新项目配置&body=Check out this article: http://yoursite.com/2021/04/11/dev/iOS-%E7%BA%AF%E4%BB%A3%E7%A0%81UI-%E6%96%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2021/04/11/dev/iOS-%E7%BA%AF%E4%BB%A3%E7%A0%81UI-%E6%96%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/&title=iOS 纯代码UI 新项目配置" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2021/04/11/dev/iOS-%E7%BA%AF%E4%BB%A3%E7%A0%81UI-%E6%96%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/&title=iOS 纯代码UI 新项目配置" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2021/04/11/dev/iOS-%E7%BA%AF%E4%BB%A3%E7%A0%81UI-%E6%96%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/&title=iOS 纯代码UI 新项目配置" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2021/04/11/dev/iOS-%E7%BA%AF%E4%BB%A3%E7%A0%81UI-%E6%96%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/&title=iOS 纯代码UI 新项目配置" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2021/04/11/dev/iOS-%E7%BA%AF%E4%BB%A3%E7%A0%81UI-%E6%96%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/&name=iOS 纯代码UI 新项目配置&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2021/04/11/dev/iOS-%E7%BA%AF%E4%BB%A3%E7%A0%81UI-%E6%96%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/&t=iOS 纯代码UI 新项目配置" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么纯代码写-UI"><span class="toc-number">1.</span> <span class="toc-text">为什么纯代码写 UI?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新项目纯代码编写如何设置"><span class="toc-number">2.</span> <span class="toc-text">新项目纯代码编写如何设置?</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        <header id="header">
+  <a href="/">
+  
+    
+      <div id="logo" style="background-image: url(/images/logo.png);"></div>
+    
+  
+    <div id="title">
+      <h1>Evancohe</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#"><i class="fas fa-bars fa-2x"></i></a>
+      </li>
+       
+        <li><a href="/">Home</a></li>
+       
+        <li><a href="/archives/">Articles</a></li>
+       
+        <li><a href="/categories/">Category</a></li>
+       
+        <li><a href="/about/">About</a></li>
+      
+    </ul>
+  </div>
+  <div id="theme-toggle" class="theme-toggle">
+    <div class="moon-icon" onclick="toggleTheme()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path class="moon-path" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<script>
+function toggleTheme() {
+  const moonIcon = document.querySelector('.moon-icon');
+  const moonPath = document.querySelector('.moon-path');
+  const body = document.body;
+  
+  // 添加点击动画
+  moonIcon.style.transform = 'scale(0.8) rotate(180deg)';
+  moonPath.style.fill = 'currentColor';
+  
+  setTimeout(() => {
+    moonIcon.style.transform = 'scale(1) rotate(360deg)';
+    
+    // 检查当前主题
+    const isDark = body.style.getPropertyValue('--theme') === 'dark' || 
+                   !body.style.getPropertyValue('--theme') && 
+                   document.documentElement.classList.contains('dark-theme');
+    
+    // 切换主题
+    if (isDark) {
+      body.style.setProperty('--theme', 'light');
+      body.classList.remove('dark-theme');
+      body.classList.add('light-theme');
+    } else {
+      body.style.setProperty('--theme', 'dark');
+      body.classList.remove('light-theme');
+      body.classList.add('dark-theme');
+    }
+    
+    // 保存到 localStorage
+    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    
+  }, 300);
+}
+
+// 页面加载时恢复主题
+document.addEventListener('DOMContentLoaded', function() {
+  const savedTheme = localStorage.getItem('theme');
+  const body = document.body;
+  
+  if (savedTheme) {
+    body.style.setProperty('--theme', savedTheme);
+    if (savedTheme === 'dark') {
+      body.classList.add('dark-theme');
+    } else {
+      body.classList.add('light-theme');
+    }
+  }
+});
+</script>
+
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        iOS 纯代码UI 新项目配置
+    </h1>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5153246100516441"
+     crossorigin="anonymous"></script>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Evancohe</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-04-11T12:21:45.000Z" itemprop="datePublished">2021-04-11</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Dev/">Dev</a> › <a class="category-link" href="/categories/Dev/iOSDev/">iOSDev</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/Xcode/" rel="tag">Xcode</a>, <a class="tag-link" href="/tags/iOS/" rel="tag">iOS</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="为什么纯代码写-UI"><a href="#为什么纯代码写-UI" class="headerlink" title="为什么纯代码写 UI?"></a>为什么纯代码写 UI?</h2><ul>
+<li>Storyboards 由于其复杂的 xml 结构更容易出现兼容性问题, 合并的时候相对纯代码麻烦.</li>
+<li>使用纯代码更方便复用,使代码库更简洁.</li>
+<li>在一个位置完成所有 UI 自定义, 而 Storyboard 需要反复点击 inspectors 去设置.</li>
+<li>Storyboard 增加了 UI 和代码的耦合度, 如果没有正确配置好 outlet 和 action 会造成崩溃,且这些问题并不会被编译器监测到.</li>
+</ul>
+<h2 id="新项目纯代码编写如何设置"><a href="#新项目纯代码编写如何设置" class="headerlink" title="新项目纯代码编写如何设置?"></a>新项目纯代码编写如何设置?</h2><p>首先,删除 Storyboard<br>点击项目名, General - Deployment Info - Main Interface 中删除 Main<br>Info.plist 中 Application Scene Manifest 中 删除 Storyboard 的 key</p>
+<p>Xcode 会生成 AppDelegate 和 SceneDelegate 两个委托文件,</p>
+<p>AppDelegate 的 didFinishLaunchingWithOptions 中加入:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">window?.makeKeyAndVisible()</span><br><span class="line">window?.rootViewController &#x3D; UINavigationController(rootViewController: ViewController())</span><br><span class="line">&#x2F;&#x2F;这里的rootViewController可自行设置</span><br></pre></td></tr></table></figure>
+
+<p>SceneDelegate 的 willConnectTo 中加入:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">guard let windowScene &#x3D; (scene as? UIWindowScene) else &#123; return &#125;</span><br><span class="line">window &#x3D; UIWindow(frame: windowScene.coordinateSpace.bounds)</span><br><span class="line">window?.windowScene &#x3D; windowScene &#x2F;&#x2F; &lt;-- Window Scene set to UIWindow</span><br><span class="line">window?.rootViewController &#x3D; ViewController(nibName: nil, bundle: nil)</span><br><span class="line">&#x2F;&#x2F;这里的rootViewController可自行设置</span><br><span class="line">window?.makeKeyAndVisible()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Command + R</span><br></pre></td></tr></table></figure>
+
+  </div>
+</article>
+
+
+
+    
+<div class="gitalk-container">
+  <div id="gitalk-container"></div>
+</div>
+
+<!-- 自定义 Gitalk 样式修复 -->
+<style>
+/* 统一使用金黄色主题 #feb72b */
+.gt-ico-text, .gt-btn-text {
+    color: #000000 !important;
+}
+
+/* 修复 gt-ico-text 的样式 - 支持 Markdown 语法 */
+.gt-ico-text {
+    color: white !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    display: inline !important;
+    font-size: 11px !important;
+}
+
+/* 修复感叹号图标颜色 */
+.gt-ico-text::before {
+    color: white !important;
+}
+
+/* 隐藏"来做第一个留言的人吧！" */
+.gt-comments-null {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+.gt-container .gt-btn-login {
+    background-color: #feb72b !important;
+    border: 1px solid #feb72b !important;
+    color: white !important;
+}
+
+.gt-container .gt-btn-public {
+    background-color: #feb72b !important;
+    border: 1px solid #feb72b !important;
+    color: black !important;
+}
+
+.gt-container .gt-btn-public:hover {
+    background-color: #fec55a !important;
+    border: 1px solid #feb72b !important;
+    color: black !important;
+}
+
+.gt-container .gt-btn {
+    border: 1px solid #feb72b !important;
+    color: #feb72b !important;
+    background-color: transparent !important;
+}
+
+.gt-container .gt-btn:hover {
+    background-color: rgba(254, 183, 43, 0.1) !important;
+    color: #feb72b !important;
+}
+
+/* 强制修复预览和评论按钮的文字颜色 - 使用更强选择器 */
+.gt-container .gt-btn-preview,
+.gt-container .gt-btn-public,
+#gitalk-container .gt-container .gt-btn-preview,
+#gitalk-container .gt-container .gt-btn-public,
+.gt-container button.gt-btn-preview,
+.gt-container button.gt-btn-public {
+    color: black !important;
+    background-color: #feb72b !important;
+    border-color: #feb72b !important;
+}
+
+.gt-container .gt-btn-preview:hover,
+.gt-container .gt-btn-public:hover,
+#gitalk-container .gt-container .gt-btn-preview:hover,
+#gitalk-container .gt-container .gt-btn-public:hover,
+.gt-container button.gt-btn-preview:hover,
+.gt-container button.gt-btn-public:hover {
+    color: black !important;
+    background-color: #fec55a !important;
+    border-color: #feb72b !important;
+}
+
+/* 强制修复 Markdown 提示文字颜色 - 使用最强选择器 */
+.gt-container .gt-comment-footer .gt-comment-footer-tip,
+#gitalk-container .gt-container .gt-comment-footer .gt-comment-footer-tip,
+.gt-container .gt-comment-footer-tip,
+#gitalk-container .gt-container .gt-comment-footer-tip,
+.gt-container .gt-comment-footer-tip *,
+#gitalk-container .gt-container .gt-comment-footer-tip * {
+    color: white !important;
+    font-size: 11px !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    display: inline !important;
+}
+
+.gt-container .gt-comment-footer .gt-comment-footer-tip a,
+#gitalk-container .gt-container .gt-comment-footer .gt-comment-footer-tip a,
+.gt-container .gt-comment-footer-tip a,
+#gitalk-container .gt-container .gt-comment-footer-tip a {
+    color: #feb72b !important;
+    text-decoration: none !important;
+    font-size: 11px !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+}
+
+.gt-container .gt-comment-footer .gt-comment-footer-tip a:hover,
+#gitalk-container .gt-container .gt-comment-footer .gt-comment-footer-tip a:hover,
+.gt-container .gt-comment-footer-tip a:hover,
+#gitalk-container .gt-container .gt-comment-footer-tip a:hover {
+    color: #fec55a !important;
+    text-decoration: underline !important;
+}
+
+.gt-container a {
+    color: #feb72b !important;
+}
+
+.gt-container .gt-btn-preview:hover {
+    border: 1px solid #feb72b !important;
+    background-color: rgba(254, 183, 43, 0.1) !important;
+}
+
+.gt-container .gt-svg svg {
+    fill: #feb72b !important;
+}
+
+.gt-container .gt-comment-username {
+    color: #feb72b !important;
+}
+
+.gt-container .gt-popup .gt-action.is--active:before {
+    background: #feb72b !important;
+}
+
+/* 修复评论数量显示 */
+.gt-container .gt-comment-count .gt-comment-count-num {
+    color: white !important;
+    font-weight: 600 !important;
+}
+
+.gt-container .gt-comment-count {
+    color: #333 !important;
+}
+
+/* 修复输入框样式 */
+.gt-container .gt-comment-textarea {
+    border-color: #ddd !important;
+    color: #333 !important;
+}
+
+.gt-container .gt-comment-textarea:focus {
+    border-color: #feb72b !important;
+    box-shadow: 0 0 0 2px rgba(254, 183, 43, 0.2) !important;
+}
+
+.gt-container .gt-comment-textarea::placeholder {
+    color: #999 !important;
+}
+
+/* 修复整体文字颜色 */
+.gt-container .gt-comment-content {
+    color: #333 !important;
+}
+
+/* 修复头像边框 */
+.gt-container .gt-avatar img {
+    border: 2px solid #feb72b !important;
+}
+
+/* 修复评论时间 */
+.gt-container .gt-comment-time {
+    color: #999 !important;
+}
+
+/* 修复回复按钮 */
+.gt-container .gt-comment-reply {
+    color: #feb72b !important;
+}
+
+.gt-container .gt-comment-reply:hover {
+    color: #fec55a !important;
+}
+
+/* 修复加载状态 */
+.gt-container .gt-loading {
+    color: #feb72b !important;
+}
+
+/* 修复错误提示 */
+.gt-container .gt-error {
+    color: #ff4757 !important;
+}
+
+/* 强制覆盖所有按钮文字颜色 */
+.gt-container button {
+    color: inherit !important;
+}
+
+/* 特别针对预览和发布按钮 */
+.gt-container .gt-btn-preview .gt-btn-text,
+.gt-container .gt-btn-public .gt-btn-text {
+    color: black !important;
+}
+
+/* 强制修复登录按钮文字颜色 */
+.gt-container .gt-btn-login .gt-btn-text,
+.gt-container .gt-btn-login {
+    color: white !important;
+}
+
+/* 强制修复所有提示文字为白色 */
+.gt-container .gt-comment-footer,
+.gt-container .gt-comment-footer * {
+    color: white !important;
+}
+
+.gt-container .gt-comment-footer a {
+    color: #feb72b !important;
+}
+</style>
+
+<!-- Gitalk CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<!-- Gitalk JS -->
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: 'Ov23liMusfcWltB4zKzd',
+    clientSecret: '4626848ef1ba8933f80bfca98c9fdc1258bd45dd',
+    repo: 'evancohe.github.io',
+    owner: 'evancohe',
+    admin: ['evancohe'],
+    id: location.pathname,
+    language: 'zh-CN',
+    distractionFreeMode: false,
+    createIssueManually: true,
+    proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token'
+  });
+  
+  gitalk.render('gitalk-container');
+  
+  // 强制应用样式的 JavaScript
+  function forceApplyStyles() {
+    // 强制设置预览和发布按钮样式
+    const previewBtn = document.querySelector('.gt-btn-preview');
+    const publicBtn = document.querySelector('.gt-btn-public');
+    
+    if (previewBtn) {
+      previewBtn.style.setProperty('color', 'black', 'important');
+      previewBtn.style.setProperty('background-color', '#feb72b', 'important');
+      previewBtn.style.setProperty('border-color', '#feb72b', 'important');
+    }
+    
+    if (publicBtn) {
+      publicBtn.style.setProperty('color', 'black', 'important');
+      publicBtn.style.setProperty('background-color', '#feb72b', 'important');
+      publicBtn.style.setProperty('border-color', '#feb72b', 'important');
+    }
+    
+    // 强制设置按钮文字颜色
+    const btnTexts = document.querySelectorAll('.gt-btn-text');
+    btnTexts.forEach(function(text) {
+      const btn = text.closest('.gt-btn');
+      if (btn && (btn.classList.contains('gt-btn-preview') || btn.classList.contains('gt-btn-public'))) {
+        text.style.setProperty('color', 'black', 'important');
+      }
+      if (btn && btn.classList.contains('gt-btn-login')) {
+        text.style.setProperty('color', 'white', 'important');
+      }
+    });
+    
+    // 强制设置 gt-ico-text 样式
+    const icoTexts = document.querySelectorAll('.gt-ico-text');
+    icoTexts.forEach(function(text) {
+      text.style.setProperty('color', 'white', 'important');
+      text.style.setProperty('background-color', 'transparent', 'important');
+      text.style.setProperty('padding', '0', 'important');
+      text.style.setProperty('border-radius', '0', 'important');
+      text.style.setProperty('display', 'inline', 'important');
+      text.style.setProperty('font-size', '11px', 'important');
+    });
+    
+    // 强制设置感叹号图标颜色
+    const icoIcons = document.querySelectorAll('.gt-ico-text::before, .gt-ico-text i, .gt-ico-text svg');
+    icoIcons.forEach(function(icon) {
+      icon.style.setProperty('color', 'white', 'important');
+    });
+    
+    // 强制设置 Markdown 提示颜色
+    const tipLinks = document.querySelectorAll('.gt-comment-footer-tip a');
+    tipLinks.forEach(function(link) {
+      link.style.setProperty('color', '#feb72b', 'important');
+    });
+    
+    // 强制设置 Markdown 提示文字为白色并去掉背景
+    const tipText = document.querySelector('.gt-comment-footer-tip');
+    if (tipText) {
+      tipText.style.setProperty('color', 'white', 'important');
+      tipText.style.setProperty('background-color', 'transparent', 'important');
+      tipText.style.setProperty('padding', '0', 'important');
+      tipText.style.setProperty('border-radius', '0', 'important');
+      tipText.style.setProperty('display', 'inline', 'important');
+      tipText.style.setProperty('font-size', '11px', 'important');
+    }
+    
+    // 强制设置所有提示文字为白色
+    const footerTexts = document.querySelectorAll('.gt-comment-footer');
+    footerTexts.forEach(function(footer) {
+      footer.style.setProperty('color', 'white', 'important');
+    });
+    
+    // 隐藏"来做第一个留言的人吧！"文字
+    const nullComments = document.querySelectorAll('.gt-comments-null');
+    nullComments.forEach(function(element) {
+      element.style.setProperty('display', 'none', 'important');
+      element.style.setProperty('visibility', 'hidden', 'important');
+    });
+  }
+  
+  // 监听 Gitalk 加载完成
+  gitalk.on('ready', function() {
+    console.log('Gitalk ready, applying forced styles...');
+    forceApplyStyles();
+    
+    // 持续检查和应用样式
+    setInterval(forceApplyStyles, 500);
+    
+    // 监听 DOM 变化
+    const observer = new MutationObserver(function(mutations) {
+      forceApplyStyles();
+    });
+    
+    observer.observe(document.getElementById('gitalk-container'), {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['style', 'class']
+    });
+  });
+</script>
+
+
+
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Articles</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么纯代码写-UI"><span class="toc-number">1.</span> <span class="toc-text">为什么纯代码写 UI?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新项目纯代码编写如何设置"><span class="toc-number">2.</span> <span class="toc-text">新项目纯代码编写如何设置?</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2021/04/11/dev/iOS-%E7%BA%AF%E4%BB%A3%E7%A0%81UI-%E6%96%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2021/04/11/dev/iOS-%E7%BA%AF%E4%BB%A3%E7%A0%81UI-%E6%96%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/&text=iOS 纯代码UI 新项目配置" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2021/04/11/dev/iOS-%E7%BA%AF%E4%BB%A3%E7%A0%81UI-%E6%96%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/&title=iOS 纯代码UI 新项目配置" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2021/04/11/dev/iOS-%E7%BA%AF%E4%BB%A3%E7%A0%81UI-%E6%96%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/&is_video=false&description=iOS 纯代码UI 新项目配置" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=iOS 纯代码UI 新项目配置&body=Check out this article: http://yoursite.com/2021/04/11/dev/iOS-%E7%BA%AF%E4%BB%A3%E7%A0%81UI-%E6%96%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2021/04/11/dev/iOS-%E7%BA%AF%E4%BB%A3%E7%A0%81UI-%E6%96%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/&title=iOS 纯代码UI 新项目配置" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2021/04/11/dev/iOS-%E7%BA%AF%E4%BB%A3%E7%A0%81UI-%E6%96%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/&title=iOS 纯代码UI 新项目配置" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2021/04/11/dev/iOS-%E7%BA%AF%E4%BB%A3%E7%A0%81UI-%E6%96%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/&title=iOS 纯代码UI 新项目配置" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2021/04/11/dev/iOS-%E7%BA%AF%E4%BB%A3%E7%A0%81UI-%E6%96%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/&title=iOS 纯代码UI 新项目配置" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2021/04/11/dev/iOS-%E7%BA%AF%E4%BB%A3%E7%A0%81UI-%E6%96%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/&name=iOS 纯代码UI 新项目配置&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2021/04/11/dev/iOS-%E7%BA%AF%E4%BB%A3%E7%A0%81UI-%E6%96%B0%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/&t=iOS 纯代码UI 新项目配置" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2018-2025
+    Evancohe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Articles</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-169943322-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5153246100516441"
+     crossorigin="anonymous"></script>
+</body>
+</html>

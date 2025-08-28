@@ -439,6 +439,30 @@ body td {
   font-family: "Meslo LG";
   src: local("Meslo LG S"), url("../lib/meslo-LG/MesloLGS-Regular.ttf") format("truetype");
 }
+:root {
+  --color-background: #2c2c2c;
+  --color-text: #c9cacc;
+  --color-link: #d480aa;
+  --color-accent-1: #feb72b;
+  --color-border: #666;
+  --color-meta: #666;
+}
+body.light-theme {
+  --color-background: #e2e0de;
+  --color-text: #363533;
+  --color-link: #2bbc8a;
+  --color-accent-1: #d44375;
+  --color-border: #666;
+  --color-meta: #666;
+}
+body.dark-theme {
+  --color-background: #2c2c2c;
+  --color-text: #c9cacc;
+  --color-link: #d480aa;
+  --color-accent-1: #feb72b;
+  --color-border: #666;
+  --color-meta: #666;
+}
 *,
 *:before,
 *:after {
@@ -448,15 +472,15 @@ html {
   margin: 0;
   padding: 0;
   height: 100%;
-  border-top: 2px solid #c9cacc;
+  border-top: 2px solid var(--color-text);
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
 }
 body {
   margin: 0;
   height: 100%;
-  background-color: #2c2c2c;
-  color: #c9cacc;
+  background-color: var(--color-background);
+  color: var(--color-text);
   font-display: swap;
   font-weight: 400;
   font-size: 14px;
@@ -464,6 +488,7 @@ body {
   line-height: 1.725;
   text-rendering: geometricPrecision;
   flex: 1;
+  transition: background-color 0.3s ease, color 0.3s ease;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 }
@@ -487,21 +512,21 @@ body {
   -webkit-hyphens: manual;
 }
 .content a {
-  color: #c9cacc;
+  color: var(--color-text);
   text-decoration: none;
-  background-image: linear-gradient(transparent, transparent 5px, #c9cacc 5px, #c9cacc);
+  background-image: linear-gradient(transparent, transparent 5px, var(--color-text) 5px, var(--color-text));
   background-position: bottom;
   background-size: 100% 6px;
   background-repeat: repeat-x;
 }
 .content a:hover {
-  background-image: linear-gradient(transparent, transparent 4px, #d480aa 4px, #d480aa);
+  background-image: linear-gradient(transparent, transparent 4px, var(--color-link) 4px, var(--color-link));
 }
 .content a.icon {
   background: none;
 }
 .content a.icon:hover {
-  color: #d480aa;
+  color: var(--color-link);
 }
 .content h1 a,
 .content .h1 a,
@@ -521,7 +546,7 @@ body {
 .content h4 a:hover,
 .content h5 a:hover,
 .content h6 a:hover {
-  background-image: linear-gradient(transparent, transparent 6px, #d480aa 6px, #d480aa);
+  background-image: linear-gradient(transparent, transparent 6px, var(--color-link) 6px, var(--color-link));
   background-position: bottom;
   background-size: 100% 6px;
   background-repeat: repeat-x;
@@ -532,7 +557,7 @@ body {
   text-decoration: none;
 }
 .content h6 a:hover {
-  background-image: linear-gradient(transparent, transparent 6px, #d480aa 6px, #d480aa);
+  background-image: linear-gradient(transparent, transparent 6px, var(--color-link) 6px, var(--color-link));
   background-position: bottom;
   background-size: 100% 6px;
   background-repeat: repeat-x;
@@ -571,6 +596,7 @@ body {
 #header {
   margin: 0 auto 2rem;
   width: 100%;
+  position: relative;
 }
 #header h1,
 #header .h1 {
@@ -642,6 +668,37 @@ body {
 #header #nav ul li:last-child a {
   margin-right: 0;
 }
+#header .theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+#header .theme-toggle .moon-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #c9cacc;
+}
+#header .theme-toggle .moon-icon:hover {
+  background: rgba(255,255,255,0.2);
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+#header .theme-toggle .moon-icon svg {
+  transition: all 0.3s ease;
+}
+#header .theme-toggle .moon-icon .moon-path {
+  transition: all 0.3s ease;
+}
 #header:hover #logo {
   filter: none;
   -webkit-filter: none;
@@ -676,6 +733,14 @@ body {
     padding-top: 1rem;
     padding-left: 70px;
     font-size: 1rem;
+  }
+  #header .theme-toggle {
+    top: 15px;
+    right: 15px;
+  }
+  #header .theme-toggle .moon-icon {
+    width: 35px;
+    height: 35px;
   }
 }
 #header-post {
