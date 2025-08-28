@@ -1203,6 +1203,60 @@ article .content .caption {
     content: "|";
   }
 }
+.gitalk-container {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #666;
+}
+.gitalk-container .gt-container .gt-header .gt-avatar {
+  border-radius: 50%;
+}
+.gitalk-container .gt-container .gt-header .gt-meta .gt-user {
+  color: #c9cacc;
+  font-weight: 600;
+}
+.gitalk-container .gt-container .gt-header .gt-meta .gt-time {
+  color: #666;
+  font-size: 0.9rem;
+}
+.gitalk-container .gt-container .gt-comment-content {
+  color: #c9cacc;
+  background: #2c2c2c;
+  border: 1px solid #666;
+  border-radius: 4px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+.gitalk-container .gt-container .gt-btn {
+  background: #d480aa;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.gitalk-container .gt-container .gt-btn:hover {
+  background: #cb6799;
+}
+.gitalk-container .gt-container .gt-btn-text {
+  color: #d480aa;
+  text-decoration: none;
+}
+.gitalk-container .gt-container .gt-btn-text:hover {
+  color: #cb6799;
+}
+.gitalk-container .gt-container .gt-form .gt-form-textarea {
+  border: 1px solid #666;
+  border-radius: 4px;
+  background: #2c2c2c;
+  color: #c9cacc;
+  padding: 0.5rem;
+}
+.gitalk-container .gt-container .gt-form .gt-form-textarea:focus {
+  border-color: #d480aa;
+  outline: none;
+}
 #archive .post-list {
   padding: 0;
 }
