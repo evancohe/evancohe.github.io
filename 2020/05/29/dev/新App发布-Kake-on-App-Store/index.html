@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="发布应用今天发布了一款日记App - Kake.App Store: 链接   (Free)意源自日语「書きます」(写)的命令形态: 「書け」(Kake), 坚持一日一记. Why因为按照自己想法添加了很多工具进去, 比如布局, 无限放大缩小字体等等,而且市面上的日记App没有特别简洁的,所以自己搓一个. 开发概况以后更新先放一些截图吧: (旧版本)">
+    <meta name="description" content="发布应用今天发布了一款日记App - Kake.App Store: 链接   (Free)意源自日语「書きます」(写)的命令形态: 「書け」(Kake), 坚持一日一记. Why因为按照自己想法添加了很多工具进去, 比如布局, 无限放大缩小字体等等,而且市面上的日记App没有特别简洁的,所以自己搓一个. 开发概况以后更新先放一些截图吧: (旧版本)                   目前App">
 <meta property="og:type" content="article">
 <meta property="og:title" content="新App发布 「Kake」 on App Store">
 <meta property="og:url" content="http://yoursite.com/2020/05/29/dev/%E6%96%B0App%E5%8F%91%E5%B8%83-Kake-on-App-Store/index.html">
 <meta property="og:site_name" content="Evancohe">
-<meta property="og:description" content="发布应用今天发布了一款日记App - Kake.App Store: 链接   (Free)意源自日语「書きます」(写)的命令形态: 「書け」(Kake), 坚持一日一记. Why因为按照自己想法添加了很多工具进去, 比如布局, 无限放大缩小字体等等,而且市面上的日记App没有特别简洁的,所以自己搓一个. 开发概况以后更新先放一些截图吧: (旧版本)">
+<meta property="og:description" content="发布应用今天发布了一款日记App - Kake.App Store: 链接   (Free)意源自日语「書きます」(写)的命令形态: 「書け」(Kake), 坚持一日一记. Why因为按照自己想法添加了很多工具进去, 比如布局, 无限放大缩小字体等等,而且市面上的日记App没有特别简洁的,所以自己搓一个. 开发概况以后更新先放一些截图吧: (旧版本)                   目前App">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://yoursite.com/image/kake/kake01.png">
 <meta property="og:image" content="http://yoursite.com/image/kake/kake02.png">
@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://yoursite.com/image/kake/e6.png">
 <meta property="og:image" content="http://yoursite.com/image/kake/e7.png">
 <meta property="article:published_time" content="2020-05-29T00:02:00.000Z">
-<meta property="article:modified_time" content="2025-08-28T06:22:07.107Z">
+<meta property="article:modified_time" content="2025-08-28T07:47:36.812Z">
 <meta property="article:author" content="Evancohe">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Xcode">
@@ -131,93 +131,7 @@
 
     
     <div class="content index py4">
-        <header id="header">
-  <a href="/">
-  
-    
-      <div id="logo" style="background-image: url(/images/logo.png);"></div>
-    
-  
-    <div id="title">
-      <h1>Evancohe</h1>
-    </div>
-  </a>
-  <div id="nav">
-    <ul>
-      <li class="icon">
-        <a href="#"><i class="fas fa-bars fa-2x"></i></a>
-      </li>
-       
-        <li><a href="/">Home</a></li>
-       
-        <li><a href="/archives/">Articles</a></li>
-       
-        <li><a href="/categories/">Category</a></li>
-       
-        <li><a href="/about/">About</a></li>
-      
-    </ul>
-  </div>
-  <div id="theme-toggle" class="theme-toggle">
-    <div class="moon-icon" onclick="toggleTheme()">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path class="moon-path" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-  </div>
-</header>
-
-<script>
-function toggleTheme() {
-  const moonIcon = document.querySelector('.moon-icon');
-  const moonPath = document.querySelector('.moon-path');
-  const body = document.body;
-  
-  // 添加点击动画
-  moonIcon.style.transform = 'scale(0.8) rotate(180deg)';
-  moonPath.style.fill = 'currentColor';
-  
-  setTimeout(() => {
-    moonIcon.style.transform = 'scale(1) rotate(360deg)';
-    
-    // 检查当前主题
-    const isDark = body.style.getPropertyValue('--theme') === 'dark' || 
-                   !body.style.getPropertyValue('--theme') && 
-                   document.documentElement.classList.contains('dark-theme');
-    
-    // 切换主题
-    if (isDark) {
-      body.style.setProperty('--theme', 'light');
-      body.classList.remove('dark-theme');
-      body.classList.add('light-theme');
-    } else {
-      body.style.setProperty('--theme', 'dark');
-      body.classList.remove('light-theme');
-      body.classList.add('dark-theme');
-    }
-    
-    // 保存到 localStorage
-    localStorage.setItem('theme', isDark ? 'light' : 'dark');
-    
-  }, 300);
-}
-
-// 页面加载时恢复主题
-document.addEventListener('DOMContentLoaded', function() {
-  const savedTheme = localStorage.getItem('theme');
-  const body = document.body;
-  
-  if (savedTheme) {
-    body.style.setProperty('--theme', savedTheme);
-    if (savedTheme === 'dark') {
-      body.classList.add('dark-theme');
-    } else {
-      body.classList.add('light-theme');
-    }
-  }
-});
-</script>
-
+        
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
@@ -266,49 +180,25 @@ document.addEventListener('DOMContentLoaded', function() {
 <h2 id="开发概况"><a href="#开发概况" class="headerlink" title="开发概况"></a>开发概况</h2><p>以后更新<br>先放一些截图吧:</p>
 <p>(旧版本)</p>
 <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 20px 0;">
-  <a href="/image/kake/kake01.png" data-fancybox="kake-gallery" data-caption="Kake App Screenshot 1" style="text-decoration: none;">
-    <img src="/image/kake/kake01.png" width="180" height="120" alt="kake" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000);">
-  </a>
-  <a href="/image/kake/kake02.png" data-fancybox="kake-gallery" data-caption="Kake App Screenshot 2" style="text-decoration: none;">
-    <img src="/image/kake/kake02.png" width="180" height="120" alt="kake" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000);">
-  </a>
-  <a href="/image/kake/kake03.png" data-fancybox="kake-gallery" data-caption="Kake App Screenshot 3" style="text-decoration: none;">
-    <img src="/image/kake/kake03.png" width="180" height="120" alt="kake" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000);">
-  </a>
-  <a href="/image/kake/kake04.png" data-fancybox="kake-gallery" data-caption="Kake App Screenshot 4" style="text-decoration: none;">
-    <img src="/image/kake/kake04.png" width="180" height="120" alt="kake" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000);">
-  </a>
-  <a href="/image/kake/kake05.png" data-fancybox="kake-gallery" data-caption="Kake App Screenshot 5" style="text-decoration: none;">
-    <img src="/image/kake/kake05.png" width="180" height="120" alt="kake" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000);">
-  </a>
+  <img src="/image/kake/kake01.png" width="200" height="100" alt="kake" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000); $.fancybox.open([{src: '/image/kake/kake01.png', type: 'image', caption: 'Kake App Screenshot 1'}]);">
+  <img src="/image/kake/kake02.png" width="200" height="100" alt="kake" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000); $.fancybox.open([{src: '/image/kake/kake02.png', type: 'image', caption: 'Kake App Screenshot 2'}]);">
+  <img src="/image/kake/kake03.png" width="200" height="100" alt="kake" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000); $.fancybox.open([{src: '/image/kake/kake03.png', type: 'image', caption: 'Kake App Screenshot 3'}]);">
+  <img src="/image/kake/kake04.png" width="200" height="100" alt="kake" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000); $.fancybox.open([{src: '/image/kake/kake04.png', type: 'image', caption: 'Kake App Screenshot 4'}]);">
+  <img src="/image/kake/kake05.png" width="200" height="100" alt="kake" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000); $.fancybox.open([{src: '/image/kake/kake05.png', type: 'image', caption: 'Kake App Screenshot 5'}]);">
 </div>
 
 <h2 id="目前App的情况"><a href="#目前App的情况" class="headerlink" title="目前App的情况"></a>目前App的情况</h2><p>2020-05-29发布至今2025-08-28也好多年了, 这个App期间有前3年没怎么维护,然后大更新了一下,<br>1年多的时间已经有1220多个评价了,感谢我的用户!</p>
-<img src="/image/kake/KakeReviews_screenshot.jpg" width="240" height="120" alt="kake" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+<img src="/image/kake/KakeReviews_screenshot.jpg" width="200" height="100" alt="kake" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000); $.fancybox.open([{src: '/image/kake/KakeReviews_screenshot.jpg', type: 'image', caption: 'Kake App Reviews'}]);">
 
 <p>(目前新版本)</p>
 <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 20px 0;">
-  <a href="/image/kake/e1.png" data-fancybox="kake-new-gallery" data-caption="Kake App New Version Screenshot 1" style="text-decoration: none;">
-    <img src="/image/kake/e1.png" width="180" height="120" alt="kake new version" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(5, 1, 1, 0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000);">
-  </a>
-  <a href="/image/kake/e2.png" data-fancybox="kake-new-gallery" data-caption="Kake App New Version Screenshot 2" style="text-decoration: none;">
-    <img src="/image/kake/e2.png" width="180" height="120" alt="kake new version" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000);">
-  </a>
-  <a href="/image/kake/e3.png" data-fancybox="kake-new-gallery" data-caption="Kake App New Version Screenshot 3" style="text-decoration: none;">
-    <img src="/image/kake/e3.png" width="180" height="120" alt="kake new version" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000);">
-  </a>
-  <a href="/image/kake/e4.png" data-fancybox="kake-new-gallery" data-caption="Kake App New Version Screenshot 4" style="text-decoration: none;">
-    <img src="/image/kake/e4.png" width="180" height="120" alt="kake new version" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000);">
-  </a>
-  <a href="/image/kake/e5.png" data-fancybox="kake-new-gallery" data-caption="Kake App New Version Screenshot 5" style="text-decoration: none;">
-    <img src="/image/kake/e5.png" width="180" height="120" alt="kake new version" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000);">
-  </a>
-  <a href="/image/kake/e6.png" data-fancybox="kake-new-gallery" data-caption="Kake App New Version Screenshot 6" style="text-decoration: none;">
-    <img src="/image/kake/e6.png" width="180" height="120" alt="kake new version" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000);">
-  </a>
-  <a href="/image/kake/e7.png" data-fancybox="kake-new-gallery" data-caption="Kake App New Version Screenshot 7" style="text-decoration: none;">
-    <img src="/image/kake/e7.png" width="180" height="120" alt="kake new version" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000);">
-  </a>
+  <img src="/image/kake/e1.png" width="200" height="100" alt="kake new version" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(5, 1, 1, 0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000); $.fancybox.open([{src: '/image/kake/e1.png', type: 'image', caption: 'Kake App New Version Screenshot 1'}]);">
+  <img src="/image/kake/e2.png" width="200" height="100" alt="kake new version" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000); $.fancybox.open([{src: '/image/kake/e2.png', type: 'image', caption: 'Kake App New Version Screenshot 2'}]);">
+  <img src="/image/kake/e3.png" width="200" height="100" alt="kake new version" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000); $.fancybox.open([{src: '/image/kake/e3.png', type: 'image', caption: 'Kake App New Version Screenshot 3'}]);">
+  <img src="/image/kake/e4.png" width="200" height="100" alt="kake new version" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000); $.fancybox.open([{src: '/image/kake/e4.png', type: 'image', caption: 'Kake App New Version Screenshot 4'}]);">
+  <img src="/image/kake/e5.png" width="200" height="100" alt="kake new version" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000); $.fancybox.open([{src: '/image/kake/e5.png', type: 'image', caption: 'Kake App New Version Screenshot 5'}]);">
+  <img src="/image/kake/e6.png" width="200" height="100" alt="kake new version" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000); $.fancybox.open([{src: '/image/kake/e6.png', type: 'image', caption: 'Kake App New Version Screenshot 6'}]);">
+  <img src="/image/kake/e7.png" width="200" height="100" alt="kake new version" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000); $.fancybox.open([{src: '/image/kake/e7.png', type: 'image', caption: 'Kake App New Version Screenshot 7'}]);">
 </div>
 
   </div>

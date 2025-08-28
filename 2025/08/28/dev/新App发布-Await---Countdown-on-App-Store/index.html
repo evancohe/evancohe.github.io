@@ -6,16 +6,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="article">
+    <meta name="description" content="新App  Await Countdown上架啦(👏👏👏) 一个简单好看的倒数日,支持桌面小组件,希望能有销量吧,哈哈 App 截图">
+<meta property="og:type" content="article">
 <meta property="og:title" content="新App发布 「Await - Countdown」 on App Store">
 <meta property="og:url" content="http://yoursite.com/2025/08/28/dev/%E6%96%B0App%E5%8F%91%E5%B8%83-Await---Countdown-on-App-Store/index.html">
 <meta property="og:site_name" content="Evancohe">
+<meta property="og:description" content="新App  Await Countdown上架啦(👏👏👏) 一个简单好看的倒数日,支持桌面小组件,希望能有销量吧,哈哈 App 截图">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/image/await_appicon.png">
+<meta property="og:image" content="http://yoursite.com/image/await/sc1.png">
+<meta property="og:image" content="http://yoursite.com/image/await/sc2.png">
+<meta property="og:image" content="http://yoursite.com/image/await/sc3.png">
+<meta property="og:image" content="http://yoursite.com/image/await/sc4.png">
+<meta property="og:image" content="http://yoursite.com/image/await/sc5.png">
+<meta property="og:image" content="http://yoursite.com/image/await/sc6.png">
 <meta property="article:published_time" content="2025-08-28T00:46:45.000Z">
-<meta property="article:modified_time" content="2025-08-28T05:59:10.378Z">
+<meta property="article:modified_time" content="2025-08-28T07:47:36.813Z">
 <meta property="article:author" content="Evancohe">
 <meta property="article:tag" content="iOS">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/image/await_appicon.png">
     
     
         
@@ -106,100 +116,14 @@
 
     </div>
     <div id="toc">
-      
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#App-截图"><span class="toc-number">1.</span> <span class="toc-text">App 截图</span></a></li></ol>
     </div>
   </span>
 </div>
 
     
     <div class="content index py4">
-        <header id="header">
-  <a href="/">
-  
-    
-      <div id="logo" style="background-image: url(/images/logo.png);"></div>
-    
-  
-    <div id="title">
-      <h1>Evancohe</h1>
-    </div>
-  </a>
-  <div id="nav">
-    <ul>
-      <li class="icon">
-        <a href="#"><i class="fas fa-bars fa-2x"></i></a>
-      </li>
-       
-        <li><a href="/">Home</a></li>
-       
-        <li><a href="/archives/">Articles</a></li>
-       
-        <li><a href="/categories/">Category</a></li>
-       
-        <li><a href="/about/">About</a></li>
-      
-    </ul>
-  </div>
-  <div id="theme-toggle" class="theme-toggle">
-    <div class="moon-icon" onclick="toggleTheme()">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path class="moon-path" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-  </div>
-</header>
-
-<script>
-function toggleTheme() {
-  const moonIcon = document.querySelector('.moon-icon');
-  const moonPath = document.querySelector('.moon-path');
-  const body = document.body;
-  
-  // 添加点击动画
-  moonIcon.style.transform = 'scale(0.8) rotate(180deg)';
-  moonPath.style.fill = 'currentColor';
-  
-  setTimeout(() => {
-    moonIcon.style.transform = 'scale(1) rotate(360deg)';
-    
-    // 检查当前主题
-    const isDark = body.style.getPropertyValue('--theme') === 'dark' || 
-                   !body.style.getPropertyValue('--theme') && 
-                   document.documentElement.classList.contains('dark-theme');
-    
-    // 切换主题
-    if (isDark) {
-      body.style.setProperty('--theme', 'light');
-      body.classList.remove('dark-theme');
-      body.classList.add('light-theme');
-    } else {
-      body.style.setProperty('--theme', 'dark');
-      body.classList.remove('light-theme');
-      body.classList.add('dark-theme');
-    }
-    
-    // 保存到 localStorage
-    localStorage.setItem('theme', isDark ? 'light' : 'dark');
-    
-  }, 300);
-}
-
-// 页面加载时恢复主题
-document.addEventListener('DOMContentLoaded', function() {
-  const savedTheme = localStorage.getItem('theme');
-  const body = document.body;
-  
-  if (savedTheme) {
-    body.style.setProperty('--theme', savedTheme);
-    if (savedTheme === 'dark') {
-      body.classList.add('dark-theme');
-    } else {
-      body.classList.add('light-theme');
-    }
-  }
-});
-</script>
-
+        
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
@@ -243,7 +167,18 @@ document.addEventListener('DOMContentLoaded', function() {
   
 
   <div class="content" itemprop="articleBody">
-    
+    <p>新App<br><span><img src="/image/await_appicon.png" alt="Await App Icon" style="width: 50px; height: 50px; border-radius: 6px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: inline-block; vertical-align: middle; margin: 0 4px; cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000);"></span>  <a href="https://apps.apple.com/app/id6749663133" target="_blank" rel="noopener">Await Countdown</a><br>上架啦(👏👏👏)</p>
+<p>一个简单好看的倒数日,<br>支持桌面小组件,<br>希望能有销量吧,哈哈</p>
+<h2 id="App-截图"><a href="#App-截图" class="headerlink" title="App 截图"></a>App 截图</h2><div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 20px 0;">
+  <img src="/image/await/sc1.png" width="200" height="100" alt="Await App Screenshot 1" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000); $.fancybox.open([{src: '/image/await/sc1.png', type: 'image', caption: 'Await App Screenshot 1'}]);">
+  <img src="/image/await/sc2.png" width="200" height="100" alt="Await App Screenshot 2" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000); $.fancybox.open([{src: '/image/await/sc2.png', type: 'image', caption: 'Await App Screenshot 2'}]);">
+  <img src="/image/await/sc3.png" width="200" height="100" alt="Await App Screenshot 3" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000); $.fancybox.open([{src: '/image/await/sc3.png', type: 'image', caption: 'Await App Screenshot 3'}]);">
+  <img src="/image/await/sc4.png" width="200" height="100" alt="Await App Screenshot 4" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000); $.fancybox.open([{src: '/image/await/sc4.png', type: 'image', caption: 'Await App Screenshot 4'}]);">
+  <img src="/image/await/sc5.png" width="200" height="100" alt="Await App Screenshot 5" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000); $.fancybox.open([{src: '/image/await/sc5.png', type: 'image', caption: 'Await App Screenshot 5'}]);">
+  <img src="/image/await/sc6.png" width="200" height="100" alt="Await App Screenshot 6" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s ease;" onclick="this.style.transform='scale(2)'; setTimeout(()=>this.style.transform='scale(1)', 1000); $.fancybox.open([{src: '/image/await/sc6.png', type: 'image', caption: 'Await App Screenshot 6'}]);">
+</div>
+
+
   </div>
 </article>
 
@@ -623,7 +558,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 
     <div id="toc-footer" style="display: none">
-      
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#App-截图"><span class="toc-number">1.</span> <span class="toc-text">App 截图</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
